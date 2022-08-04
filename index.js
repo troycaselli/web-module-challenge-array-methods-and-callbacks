@@ -99,7 +99,9 @@ Use the higher-order function getWinnersByYear to do the following:
 function getWinnersByYear(array, getFinalsCB, getYearsCB, getWinnersCB) {
     const winners = getWinnersCB(array, getFinalsCB);
     const years = getYearsCB(array, getFinalsCB);
-    return winners.map((element, index) => `In ${years[index]}, ${element} won the world cup!`);
+    return winners.map((element, index) => {
+       return `In ${years[index]}, ${element} won the world cup!`;
+    });
     // longhand solution:
     // const finals = getFinalsCB(array);
     // const winnersArr = [];
@@ -141,12 +143,23 @@ Create a function called `getCountryWins` that takes the parameters `data` and `
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+function getCountryWins(array, teamInitials) {
+    let counter = 0;
+    const winnersArr = getFinals(array).map((element) => {
+        return element['Home Team Goals'] > element['Away Team Goals'] ? element['Home Team Initials'] : element['Away Team Initials']});
 
-    /* code here */
+    for(let i = 0; i < winnersArr.length; i++) {
+        if(winnersArr[i] === teamInitials) {
+            counter++;
+        }
+    };
+    console.log(winnersArr);
+    return `${teamInitials} won ${counter} world cups`;
 
+    // getFinals(data).reduce((accumulator, element) => {
+    //     return accumulator + (element['Home Team Goals'] > element['Away Team Goals'] ? 1 : 0)}, 0);
 }
-
+console.log(getCountryWins(fifaData, 'FRA'));
 
 
 /* 💪💪💪💪💪 Stretch 2: 💪💪💪💪💪 
